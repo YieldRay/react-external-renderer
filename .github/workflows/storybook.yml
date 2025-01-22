@@ -35,7 +35,7 @@ jobs:
 
             - name: Build storybook
               run: |
-                  npm install
+                  npm install --legacy-peer-deps
                   npm run build-storybook
 
             - name: Setup Pages
