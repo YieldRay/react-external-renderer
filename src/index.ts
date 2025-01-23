@@ -1,5 +1,5 @@
 import { createElement, useState, useLayoutEffect, Fragment } from "react";
-import React from "react";
+import type React from "react";
 
 type ReactComponent<P> = React.FunctionComponent<P> | React.ComponentClass<P>;
 
@@ -50,7 +50,7 @@ export function createExternalRenderer() {
             };
         }, []);
         return list.map(({ key, component, props, children }) =>
-            createElement(Fragment, { key }, React.createElement(component, props, children))
+            createElement(Fragment, { key }, createElement(component, props, children))
         );
     }
     return {

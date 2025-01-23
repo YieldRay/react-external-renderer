@@ -1,4 +1,4 @@
-import "../src/style.css";
+import "../src/examples/style.css";
 import type { Preview } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 

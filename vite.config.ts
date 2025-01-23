@@ -20,5 +20,8 @@ export default defineConfig({
             fileName: (_format, entryName) => `${entryName}.js`,
             entry: "./src/index.ts",
         },
+        rollupOptions: {
+            external: ["framer-motion", "styled-components"],
+        },
     },
 });

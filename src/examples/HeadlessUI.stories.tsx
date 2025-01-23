@@ -1,6 +1,6 @@
 import { fn } from "@storybook/test";
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { createExternalRenderer } from "./index";
+import { createExternalRenderer } from "@/index";
 
 const { render, Renderer } = createExternalRenderer();
 
@@ -71,7 +71,7 @@ export const Default = {
             return (
                 <>
                     <Renderer />
-                    <div style={{ minHeight: "60vh", background: "#333" }}>
+                    <div className="min-h-[60vh] bg-[#333] p-4">
                         <Button
                             onClick={open}
                             className="rounded-md bg-black/20 py-2 px-4 text-sm font-medium text-white focus:outline-none data-[hover]:bg-black/30 data-[focus]:outline-1 data-[focus]:outline-white"
