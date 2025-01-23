@@ -1,0 +1,27 @@
+@import url("https://fonts.upset.dev/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap");
+@import url("https://fonts.upset.dev/css2?family=Google+Sans+Mono:wght@100;200;300;400;500;700;900&display=swap");
+.docs-story,
+.docs-story *,
+.sb-unstyled {
+    font-family: "Google Sans", Roboto, "Nunito Sans", -apple-system, ".SFNSText-Regular",
+        "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial,
+        sans-serif;
+}
+
+code,
+pre,
+pre *,
+table,
+table * {
+    font-family: "Google Sans Mono", Consolas, Courier, Courier New, monospace !important;
+}
+
+pre .token.operator {
+    background: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+    .docs-story > * {
+        background: Canvas !important;
+    }
+}
