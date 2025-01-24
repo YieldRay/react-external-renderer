@@ -1,11 +1,18 @@
 import { URL, fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import dts from "vite-plugin-dts";
 import PKG from "./package.json";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-    plugins: [react()],
+    plugins: [
+        react(),
+        dts({
+            tsconfigPath: "./tsconfig.app.json",
+            exclude: ["node_modules/**", "**/*.stories.*"],
+        }),
+    ],
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -24,7 +31,7 @@ export default defineConfig(({ mode }) => ({
             entry: "./src/index.ts",
         },
         rollupOptions: {
-            external: ["framer-motion", "styled-components"],
+            external: ["react", "react-dom", "framer-motion", "styled-components"],
         },
     },
 }));

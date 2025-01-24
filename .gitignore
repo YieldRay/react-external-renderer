@@ -12,6 +12,7 @@ storybook-static
 dist
 dist-ssr
 *.local
+*.tgz
 
 # Editor directories and files
 .vscode/*

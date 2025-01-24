@@ -1,0 +1,8 @@
+*
+!src/**/*
+!dist/**/*
+src/examples
+src/*.d.ts
+**/*.stories.ts
+**/*.stories.tsx
+**/*.stories.d.ts
