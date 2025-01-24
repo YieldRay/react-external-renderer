@@ -1,6 +1,8 @@
 import { createElement, useState, useLayoutEffect, Fragment } from "react";
 import type React from "react";
 
+const __DEV__ = process.env.NODE_ENV === "development";
+
 type ReactComponent<P> = React.FunctionComponent<P> | React.ComponentClass<P>;
 
 /**
@@ -17,27 +19,30 @@ export function createExternalRenderer() {
         const key = performance.now();
         const payload = { key, component, props, children };
         list.push(payload);
-        dispatch();
+        dispatch("render", payload);
 
         const remove = () => {
-            list.splice(list.findIndex(({ key: k }) => key === k)!, 1);
-            dispatch();
+            const deleted = list.splice(list.findIndex(({ key: k }) => key === k)!, 1);
+            dispatch("remove", deleted);
         };
         const rerender = (props: P, ...children: React.ReactNode[]) => {
             payload.props = props;
             payload.children = children;
-            dispatch();
+            dispatch("rerender", payload);
         };
         return { remove, rerender };
     }
     function removeAll() {
         list.length = 0;
-        dispatch();
+        dispatch("removeAll");
     }
 
-    /** any present <Renderer/> have their subscriber */
+    /** Any present <Renderer/> have their subscriber */
     const subscribers: Array<VoidFunction> = [];
-    const dispatch = () => subscribers.forEach((cb) => cb());
+    const dispatch = (tag: string, ...reason: any[]) => {
+        subscribers.forEach((cb) => cb());
+        if (__DEV__) console.debug(`[react-external-renderer] flushing by ${tag}`, ...reason);
+    };
 
     function Renderer() {
         const [_, setState] = useState<object>();
@@ -53,8 +58,52 @@ export function createExternalRenderer() {
             createElement(Fragment, { key }, createElement(component, props, children))
         );
     }
+
+    type DebugRenderProp = (
+        list_: typeof list,
+        subscribers_: typeof subscribers
+    ) => React.ReactNode;
+    const Debug: React.FC<{ children?: DebugRenderProp }> = __DEV__
+        ? function ({ children }) {
+              const [_, setState] = useState<object>();
+              useLayoutEffect(() => {
+                  const rerender = () => setState({});
+                  rerender.__debug__ = true;
+                  subscribers.push(rerender);
+                  return () => {
+                      subscribers.splice(subscribers.indexOf(rerender) >>> 0, 1);
+                  };
+              }, []);
+              if (children)
+                  return children(
+                      list,
+                      subscribers.filter((fn) => !("__debug__" in fn))
+                  );
+              return createElement(
+                  "pre",
+                  {
+                      style: {
+                          "max-width": "100%",
+                          overflow: "auto",
+                      },
+                  },
+                  JSON.stringify(
+                      list.map(({ key, component, props, children }) => ({
+                          key,
+                          component: String(component),
+                          props,
+                          children,
+                      })),
+                      null,
+                      4
+                  )
+              );
+          }
+        : () => null;
+
     return {
         Renderer,
+        Debug,
         render: push,
         clear: removeAll,
     };

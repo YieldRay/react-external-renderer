@@ -4,12 +4,15 @@ import react from "@vitejs/plugin-react";
 import PKG from "./package.json";
 
 // https://vite.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
     plugins: [react()],
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
         },
+    },
+    define: {
+        "process.env.NODE_ENV": JSON.stringify(mode),
     },
     build: {
         target: "es2021",
@@ -24,4 +27,4 @@ export default defineConfig({
             external: ["framer-motion", "styled-components"],
         },
     },
-});
+}));
