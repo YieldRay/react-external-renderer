@@ -6,40 +6,76 @@ const __DEV__ = process.env.NODE_ENV === "development";
 type ReactComponent<P> = React.FunctionComponent<P> | React.ComponentClass<P>;
 
 /**
- * do not relay on context
+ * Create a global renderer, returns render function and Renderer component.
+ * This is like a store so you should call it in the global scope.
+ * @example
+ * ```ts
+ * const { Renderer, render } = createExternalRenderer();
+ * ```
  */
 export function createExternalRenderer() {
-    const list: Array<{
-        key: number;
+    type Payload = {
+        key: React.Key;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         component: ReactComponent<any>;
-        props?: any;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        props?: React.ComponentProps<any>;
         children?: React.ReactNode[];
-    }> = [];
+    };
+    const list: Payload[] = [];
     function push<P>(component: ReactComponent<P>, props?: P, ...children: React.ReactNode[]) {
         const key = performance.now();
-        const payload = { key, component, props, children };
+        const payload: Payload = { key, component, props, children };
         list.push(payload);
-        dispatch("render", payload);
+        if (__DEV__) {
+            dispatch("render", payload);
+        } else {
+            dispatch();
+        }
 
-        const remove = () => {
-            const deleted = list.splice(list.findIndex(({ key: k }) => key === k)!, 1);
-            dispatch("remove", deleted);
+        const remove: VoidFunction = () => {
+            const deleted = list.splice(
+                list.findIndex(({ key: k }) => key === k),
+                1
+            );
+            if (__DEV__) {
+                dispatch("remove", deleted);
+            } else {
+                dispatch();
+            }
         };
         const rerender = (props: P, ...children: React.ReactNode[]) => {
             payload.props = props;
             payload.children = children;
-            dispatch("rerender", payload);
+            if (__DEV__) {
+                dispatch("rerender", payload);
+            } else {
+                dispatch();
+            }
         };
-        return { remove, rerender };
+        return {
+            /**
+             * Remove the already rendered component.
+             * After calling this, you should not call `rerender` again.
+             */
+            remove,
+            /**
+             * Rerender the already rendered component.
+             */
+            rerender,
+        };
     }
     function removeAll() {
         list.length = 0;
         dispatch("removeAll");
     }
 
-    /** Any present <Renderer/> have their subscriber */
+    /**
+     * @internal
+     * Any present <Renderer/> have their subscriber.
+     */
     const subscribers: Array<VoidFunction> = [];
-    const dispatch = (tag: string, ...reason: any[]) => {
+    const dispatch = (tag?: string, ...reason: unknown[]) => {
         subscribers.forEach((cb) => cb());
         if (__DEV__) console.debug(`[react-external-renderer] flushing by ${tag}`, ...reason);
     };
@@ -59,6 +95,7 @@ export function createExternalRenderer() {
         );
     }
 
+    /** Provide <Debug> for dev */
     type DebugRenderProp = (
         list_: typeof list,
         subscribers_: typeof subscribers
@@ -74,11 +111,13 @@ export function createExternalRenderer() {
                       subscribers.splice(subscribers.indexOf(rerender) >>> 0, 1);
                   };
               }, []);
+              // render props
               if (children)
                   return children(
                       list,
                       subscribers.filter((fn) => !("__debug__" in fn))
                   );
+              // default render
               return createElement(
                   "pre",
                   {
@@ -91,6 +130,7 @@ export function createExternalRenderer() {
                       list.map(({ key, component, props, children }) => ({
                           key,
                           component: String(component),
+                          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                           props,
                           children,
                       })),
@@ -102,9 +142,13 @@ export function createExternalRenderer() {
         : () => null;
 
     return {
+        /** Put this component to anywhere in your app. */
         Renderer,
+        /** WIP, for dev only */
         Debug,
+        /** Render a component with props. */
         render: push,
+        /** Remove all rendered components. */
         clear: removeAll,
     };
 }
