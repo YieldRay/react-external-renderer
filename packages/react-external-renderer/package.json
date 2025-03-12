@@ -1,0 +1,37 @@
+{
+    "name": "react-external-renderer",
+    "version": "0.0.1",
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "main": "./dist/index.js",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "dev": "vite build -w",
+        "build": "tsc -b && vite build"
+    },
+    "peerDependencies": {
+        "react": ">=16.8",
+        "react-dom": ">=16.8"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org"
+    },
+    "keywords": [
+        "react"
+    ],
+    "author": {
+        "name": "YieldRay"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/YieldRay/react-external-renderer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/YieldRay/react-external-renderer/issues"
+    },
+    "homepage": "https://github.com/YieldRay/react-external-renderer#readme"
+}

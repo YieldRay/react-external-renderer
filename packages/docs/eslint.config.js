@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
 
 export default tseslint.config(
-    { ignores: ["dist", ".storybook"] },
+    { ignores: [".storybook", "storybook-static"] },
     {
         settings: { react: { version: "18.3" } },
         extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked],

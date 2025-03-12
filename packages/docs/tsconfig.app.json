@@ -20,13 +20,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        "noUncheckedSideEffectImports": true,
-
-        /* Resolve alias */
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"]
-        }
+        "noUncheckedSideEffectImports": true
     },
-    "include": ["src", "docs"]
+    "include": ["src"]
 }

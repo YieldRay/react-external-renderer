@@ -1,6 +1,6 @@
 import { fn } from "@storybook/test";
 import { Button, Dialog, Heading, Modal } from "react-aria-components";
-import { createExternalRenderer } from "@/index";
+import { createExternalRenderer } from "react-external-renderer";
 
 const { render, Renderer } = createExternalRenderer();
 

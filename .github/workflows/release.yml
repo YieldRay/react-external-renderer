@@ -6,7 +6,7 @@ on:
         branches:
             - main
         paths:
-            - package.json
+            - ./packages/react-external-renderer/package.json
 
 permissions:
     contents: read
@@ -34,6 +34,7 @@ jobs:
 
             - name: Build package
               run: |
+                  mv ./README.md ./packages/react-external-renderer/
                   pnpm install
                   pnpm run build
 

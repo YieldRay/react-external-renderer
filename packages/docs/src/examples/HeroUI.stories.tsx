@@ -2,7 +2,7 @@ import { HeroUIProvider } from "@heroui/system";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from "@heroui/modal";
 import { Button } from "@heroui/button";
 import { fn } from "@storybook/test";
-import { createExternalRenderer } from "@/index";
+import { createExternalRenderer } from "react-external-renderer";
 
 const { render, Renderer } = createExternalRenderer();
 

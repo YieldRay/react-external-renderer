@@ -1,6 +1,6 @@
 import { fn } from "@storybook/test";
 import { Button, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { createExternalRenderer } from "@/index";
+import { createExternalRenderer } from "react-external-renderer";
 
 const { render, Renderer } = createExternalRenderer();
 

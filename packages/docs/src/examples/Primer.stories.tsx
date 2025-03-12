@@ -3,7 +3,7 @@ import { Button } from "@primer/react";
 import { Dialog } from "@primer/react/experimental";
 
 import { fn } from "@storybook/test";
-import { createExternalRenderer } from "@/index";
+import { createExternalRenderer } from "react-external-renderer";
 
 const { render, Renderer } = createExternalRenderer();
 

@@ -6,7 +6,6 @@ on:
         branches:
             - main
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
     contents: read
     id-token: write
@@ -50,7 +49,7 @@ jobs:
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                  path: "./storybook-static"
+                  path: "./packages/docs/storybook-static"
 
             - name: Deploy to GitHub Pages
               id: deployment

@@ -6,13 +6,7 @@ import PKG from "./package.json";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({
-    plugins: [
-        react(),
-        dts({
-            tsconfigPath: "./tsconfig.app.json",
-            exclude: ["node_modules/**", "**/*.stories.*"],
-        }),
-    ],
+    plugins: [react(), dts({ tsconfigPath: "./tsconfig.app.json" })],
     resolve: {
         alias: {
             "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -31,7 +25,7 @@ export default defineConfig(({ mode }) => ({
             entry: "./src/index.ts",
         },
         rollupOptions: {
-            external: ["react", "react-dom", "framer-motion", "styled-components"],
+            external: ["react", "react-dom"],
         },
     },
 }));

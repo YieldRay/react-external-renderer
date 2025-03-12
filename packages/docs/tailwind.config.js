@@ -4,7 +4,6 @@ import { heroui } from "@heroui/theme";
 export default {
     content: [
         "./src/**/*.{js,jsx,ts,tsx}",
-        "./docs/**/*.{js,jsx,ts,tsx}",
         "./node_modules/@heroui/theme/dist/components/(button|modal).js",
     ],
     // Toggle dark-mode based on .dark class or data-mode="dark"
