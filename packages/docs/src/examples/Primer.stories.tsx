@@ -2,7 +2,7 @@ import { ThemeProvider, BaseStyles } from "@primer/react";
 import { Button } from "@primer/react";
 import { Dialog } from "@primer/react/experimental";
 
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 import { createExternalRenderer } from "react-external-renderer";
 
 const { render, Renderer } = createExternalRenderer();

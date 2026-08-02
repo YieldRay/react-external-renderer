@@ -23,9 +23,8 @@
         "noUncheckedSideEffectImports": true,
 
         /* Resolve alias */
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": ["src"]

@@ -1,6 +1,8 @@
 import { createElement, useState, useLayoutEffect, Fragment } from "react";
 import type React from "react";
 
+declare const process: { env: { NODE_ENV?: string } };
+
 const __DEV__ = process.env.NODE_ENV === "development";
 
 type ReactComponent<P> = React.FunctionComponent<P> | React.ComponentClass<P>;

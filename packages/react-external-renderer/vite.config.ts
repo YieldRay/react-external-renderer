@@ -2,7 +2,7 @@ import { URL, fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
-import PKG from "./package.json";
+import PKG from "./package.json" with { type: "json" };
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => ({

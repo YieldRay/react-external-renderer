@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@import "@heroui/styles";
+@import "@radix-ui/themes/styles.css";
 
 .docs-story,
 .docs-story *,

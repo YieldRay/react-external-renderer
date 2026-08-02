@@ -1,4 +1,4 @@
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 import { Dialog } from "@ark-ui/react/dialog";
 import { Portal } from "@ark-ui/react/portal";
 import { createExternalRenderer } from "react-external-renderer";

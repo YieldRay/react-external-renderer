@@ -1,2 +1,5 @@
 packages:
-    - packages/*
+  - packages/*
+allowBuilds:
+  '@heroui/shared-utils': true
+  esbuild: true

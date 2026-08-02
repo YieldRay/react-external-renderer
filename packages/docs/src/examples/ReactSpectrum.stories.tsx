@@ -1,4 +1,4 @@
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 import { Button, Dialog, Heading, Modal } from "react-aria-components";
 import { createExternalRenderer } from "react-external-renderer";
 
@@ -36,7 +36,14 @@ export const Default = {
                                 <Heading slot="title" className="text-lg font-bold mb-4">
                                     Notice
                                 </Heading>
-                                <p className="text-gray-700">Click outside to close this dialog.</p>
+                                <p className="text-gray-700">Click 
+                                    <Button 
+                                        onPress={() => rerender({ isOpen: false })}
+                                        className="text-blue-500 hover:text-blue-700 mx-1"
+                                    >
+                                        me
+                                    </Button>
+                                    to close this dialog.</p>
                             </Dialog>
                         </Modal>
                     );

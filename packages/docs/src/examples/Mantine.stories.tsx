@@ -2,7 +2,7 @@ import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { Dialog, Group, Button, TextInput, Text } from "@mantine/core";
 
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 import { createExternalRenderer } from "react-external-renderer";
 
 const { render, Renderer } = createExternalRenderer();

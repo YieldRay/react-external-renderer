@@ -1,4 +1,4 @@
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 import { Button, Modal } from "antd";
 import { useState } from "react";
 import { createExternalRenderer } from "react-external-renderer";
